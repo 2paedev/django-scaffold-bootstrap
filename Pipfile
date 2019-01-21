@@ -8,6 +8,7 @@ pylint = "*"
 git-pylint-commit-hook = "*"
 jupyter = "*"
 pylint-django = "*"
+django-extensions = "*"
 
 [packages]
 django = "*"

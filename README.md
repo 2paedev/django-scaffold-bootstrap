@@ -7,6 +7,7 @@
 * [Testing](#Testing)
 	* [Running the unit tests](#running-the-unit-tests)
 	* [Coverage](#Coverage)
+    * [pre-push hook](#pre-push-hook)
 * [Common tools/libraries](#Common-tools/Libraries)
     * [Pipenv](#Pipenv)
     * [django-cors-headers](#django-cors-headers)
@@ -108,6 +109,22 @@ Explain what these tests test and why
 Give an example
 ```
 
+### pre-push hook
+
+```
+#!/usr/bin/env bash
+echo "run-test-hooks executing..."
+
+cmd="cd scaffold"
+$cmd
+if [ -e "manage.py" ];
+then
+   cmd="python manage.py test"
+fi
+
+$cmd
+exit
+```
 
 ## COMMON TOOLS/LIBRARIES
 
@@ -191,12 +208,18 @@ More info about the plugin [here](https://git-pylint-commit-hook.readthedocs.io/
 #### Notebooks
 (*[Official documentation](https://jupyter-notebook.readthedocs.io/en/stable/)*)
 
-TODO: intro and examples
+To create a notebook:
+```
+$> python manage.py shell_plus --notebook
+```
 
 #### iPython
 (*[Official documentation](https://ipython.readthedocs.io/en/stable/)*)
 
-TODO: intro and examples
+To use this shell:
+```
+$> python manage.py shell_plus
+```
 
 ## DEPLOYMENT
 

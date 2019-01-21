@@ -309,5 +309,5 @@ ignore-docstrings=yes
 notes=FIXME,XXX,TODO
 
 [pre-commit-hook]
-params=--disable=C0103,C0111
+params=--disable=C0103 --disable=C0111 --load-plugins pylint_django
 limit=8.0
