@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+echo "Running tests in pre-push hook..."
+cd scaffold
+if [ -e "manage.py" ];
+then
+   python manage.py test
+fi
+exit
