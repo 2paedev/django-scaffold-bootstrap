@@ -3,7 +3,6 @@
 * [Getting started](#Getting-started)
     * [Prerequisites](#Prerequisites)
     * [Installing](#Installing)
-* [Scaffolding](#Scaffolding)
 * [Testing](#Testing)
 	* [Running the unit tests](#running-the-unit-tests)
 	* [Coverage](#Coverage)
@@ -81,14 +80,6 @@ Run the server:
 $> python manage.py runserver
 ```
 
-## SCAFFOLDING
-
-Explain what these tests test and why.
-
-[Image capture]
-
-Explanation main folders
-
 ## TESTING
 
 Explain what these tests test and why
@@ -110,20 +101,9 @@ Give an example
 ```
 
 ### pre-push hook
-
+To add pre-push hook, run this command:
 ```
-#!/usr/bin/env bash
-echo "run-test-hooks executing..."
-
-cmd="cd scaffold"
-$cmd
-if [ -e "manage.py" ];
-then
-   cmd="python manage.py test"
-fi
-
-$cmd
-exit
+$> cp tools/pre-push .git/hooks
 ```
 
 ## COMMON TOOLS/LIBRARIES
@@ -137,6 +117,13 @@ $> pip3 install --user pipenv
 $> pipenv --version
 ```
 You must see something like this: ***pipenv, version 2018.11.26***
+
+The environment variables are all of them declared on *.env* file at the root folder of the project, next to the Pipfile.
+
+Also, if you wish generate a **requirements.txt** file, write the next command:
+```
+$> pipenv lock -r > requirement.txt
+```
 
 ### django-cors-headers 
 (*[Official documentation](https://pypi.org/project/django-cors-headers/)*)
@@ -187,17 +174,14 @@ $> pylint --load-plugins pylint_django --disable=C0111 <module_name>
 
 También, instalamos como dev package "git-pylint-commit-hook ". Para configurarlo hay que hacer lo siguiente:
 ```
-$> nano <project_path>/.git/hooks/pre-commit
-
-...
-#!/usr/bin/env bash
-git-pylint-commit-hook
-...
-
-$> chmod +x .git/hooks/pre-commit
 $> which pylint
 $> git-pylint-commit-hook --pylint <installation_pylint_path>/bin/pylint
 $> git-pylint-commit-hook --pylintrc <project_root_folder>/.pylintrc
+```
+
+To add pre-commit hook, run this command:
+```
+$> cp tools/pre-push .git/push
 ```
  
 Con esto ya tendríamos una verificación de linter antes de poder hacer commit.\
