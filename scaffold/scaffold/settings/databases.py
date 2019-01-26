@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 
 SQLITE = 'sqlite'
-POSTGRESQL = 'postgresql'
+POSTGRESQL = 'postgre'
 NO_DB = 'no_db'
 
 ENGINES = {}

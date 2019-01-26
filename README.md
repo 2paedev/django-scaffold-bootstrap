@@ -19,6 +19,9 @@
     * [Jupyter](#Jupyter)
         * [Notebooks](#Notebooks)
         * [iPython](#iPython)
+* [Environments](#Environments)
+* [Databases](#Databases)
+    * [Environment variables](#Environment-variables)
 * [Deployment](#Deployment)
 * [Miscellaneous](#Miscellaneous)
 	* [Built with](#Built-with)
@@ -26,7 +29,6 @@
     * [Versioning](#Versioning)
     * [Authors](#Authors)
     * [License](#License)
-    * [Acknowledgments](#Acknowledgments)
 
 *A complete scaffolding bootstrap to Django project. It include linter, notebooks, testing, environments and much more.*
 
@@ -103,6 +105,7 @@ Give an example
 ### pre-push hook
 To add pre-push hook, run this command:
 ```
+$> cd <path_to_project>
 $> cp tools/pre-push .git/hooks
 ```
 
@@ -120,6 +123,8 @@ You must see something like this: ***pipenv, version 2018.11.26***
 
 The environment variables are all of them declared on *.env* file at the root folder of the project, next to the Pipfile.
 
+**WARNING: You must uncomment the line in the .gitignore file, especially in production. It contains sensitive data.**
+
 Also, if you wish generate a **requirements.txt** file, write the next command:
 ```
 $> pipenv lock -r > requirement.txt
@@ -128,7 +133,7 @@ $> pipenv lock -r > requirement.txt
 ### django-cors-headers 
 (*[Official documentation](https://pypi.org/project/django-cors-headers/)*)
 
-TODO: Info sobre esto
+Each environment has its own configuration about CORS. You can see the settings numbers. It can be setted in the respective settings files.
 
 ### django-ratelimit 
 (*[Official documentation](https://django-ratelimit.readthedocs.io/en/stable/)*)
@@ -181,6 +186,7 @@ $> git-pylint-commit-hook --pylintrc <project_root_folder>/.pylintrc
 
 To add pre-commit hook, run this command:
 ```
+$> cd <path_to_project>
 $> cp tools/pre-push .git/push
 ```
  
@@ -204,6 +210,52 @@ To use this shell:
 ```
 $> python manage.py shell_plus
 ```
+
+## ENVIRONMENTS
+The project is configured to have 4 environments. The settings are specific for each environment:
+
+* local
+* dev
+* pre
+* pro
+
+## DATABASES
+We can choose between an SQLite, PostgreSQL or without a database. If nothing is specified in the .env file, an SQLite is loaded by default.
+
+### Environment variables
+We have the following variables in the .env file:
+```
+DATABASE_ENGINE=''
+DATABASE_NAME=''
+DATABASE_USER=''
+DATABASE_PASSWORD=''
+DATABASE_HOST=''
+DATABASE_PORT=''
+```
+
+#### SQLite
+For a development environment or just to test, I advise the installation of a SQLite database.
+
+Just set the variable *DATABASE_ENGINE="sqlite"* and **db.sqlite3** file will be created.
+
+#### PostgreSQL
+To use this type of database:
+
+```
+DATABASE_ENGINE='postgre'
+DATABASE_NAME='my_database'
+DATABASE_USER='2pae'
+DATABASE_PASSWORD='2pae1234'
+DATABASE_HOST='localhost'
+DATABASE_PORT=''
+```
+
+#### No DB
+If you do not need any database, you can configure it like this:
+```
+DATABASE_ENGINE="no_db"
+```
+
 
 ## DEPLOYMENT
 
@@ -235,9 +287,3 @@ See also the list of [contributors](https://github.com/2paedev/django-scaffold-b
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-### Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc

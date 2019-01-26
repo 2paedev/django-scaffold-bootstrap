@@ -1,26 +1,43 @@
 import os
 
+from os.path import abspath, dirname, join, normpath
+
 from .databases import set_database_config
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SITE_ROOT = dirname(BASE_DIR)
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
 
-DEBUG = True
+VERSION = 'v1'
 
-ALLOWED_HOSTS = ['*']
+APPEND_SLASH = False
 
-INSTALLED_APPS = [
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+LOCAL_APPS = ()
+
+VENDOR_APPS = (
     'django_extensions',
+    'corsheaders',
+)
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + VENDOR_APPS
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,8 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'scaffold.wsgi.APPLICATION'
 
-DATABASES = set_database_config()
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -77,4 +92,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_ROOT = normpath(SITE_ROOT)
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    normpath(join(SITE_ROOT, 'static')),
+)
